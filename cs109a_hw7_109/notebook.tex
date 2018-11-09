@@ -1,0 +1,1691 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cs109a\_hw7-submit}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{ CS109A Introduction to Data
+Science}\label{cs109a-introduction-to-data-science}
+
+\subsection{Homework 7: Classification with Logistic Regression,
+LDA/QDA, and
+Trees}\label{homework-7-classification-with-logistic-regression-ldaqda-and-trees}
+
+\textbf{Harvard University} \textbf{Fall 2018} \textbf{Instructors}:
+Pavlos Protopapas, Kevin Rader
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}RUN THIS CELL }
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+        \PY{n}{styles} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/Harvard\PYZhy{}IACS/2018\PYZhy{}CS109A/master/content/styles/cs109.css}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+        \PY{n}{HTML}\PY{p}{(}\PY{n}{styles}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \subsubsection{INSTRUCTIONS}\label{instructions}
+
+\begin{itemize}
+\item
+  To submit your assignment follow the
+  \href{https://canvas.harvard.edu/courses/42693/pages/homework-policies-and-submission-instructions}{instructions
+  given in Canvas}.
+\item
+  If needed, clarifications will be posted on Piazza.
+\item
+  This homework can be submitted in pairs.
+\item
+  If you submit individually but you have worked with someone, please
+  include the name of your \textbf{one} partner below.
+\end{itemize}
+
+\textbf{Name of the person you have worked with goes here:} 
+
+    Avriel Epps, Erin Williams
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegressionCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{LinearDiscriminantAnalysis}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{QuadraticDiscriminantAnalysis}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{tree}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{export\PYZus{}graphviz}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{make\PYZus{}pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}blobs}
+\end{Verbatim}
+
+
+     Question 1 {[}20 pts{]}: Overview of Multiclass Thyroid Classification
+
+In this problem set you will build a model for diagnosing disorders in a
+patient's thyroid gland. Given the results of medical tests on a
+patient, the task is to classify the patient either as: - \emph{normal}
+(class 1) - having \emph{hyperthyroidism} (class 2) - or having
+\emph{hypothyroidism} (class 3).
+
+The data set is provided in the file \texttt{dataset\_hw7.csv}. Columns
+1-2 contain biomarkers for a patient (predictors): - Biomarker 1:
+(Logarithm of) level of basal thyroid-stimulating hormone (TSH) as
+measured by radioimmuno assay - Biomarker 2: (Logarithm of) maximal
+absolute difference of TSH value after injection of 200 micro grams of
+thyrotropin-releasing hormone as compared to the basal value.
+
+The last column contains the diagnosis for the patient from a medical
+expert. This data set was
+\href{http://archive.ics.uci.edu/ml/datasets/Thyroid+Disease}{obtained
+from the UCI Machine Learning Repository}; for this assignment we chose
+two predictors so we can visualize the decision boundaries.
+
+Notice that unlike previous exercises, the task at hand is a 3-class
+classification problem. We will explore different methods for multiclass
+classification.
+
+For most of this problem set, we'll measure overall classification
+accuracy as the fraction of observations classified correctly.
+
+    \textbf{1.1} Load the data and examine its structure. How many instances
+of each class are there in our dataset? In particular, what is the ratio
+of the number of observations in class 2 (hyperthyroidism) to the number
+of observations in class 3 (hypothyroidism)? We'll refer to this as the
+\emph{hyper-to-hypo ratio}.
+
+\textbf{1.2}: We're going to split this data into a 50\% training set
+and a 50\% test set. But since our dataset is small, we need to make
+sure we do it correctly. Let's see what happens when we \emph{don't}
+split correctly: for each of 100 different random splits of the data
+into 50\% train and 50\% test, compute the hyper-to-hypo for the
+observations end up in the training set. Plot the distribution of the
+hyper-to-hypo ratio; on your plot, also mark the hyper-to-hypo ratio
+that you found in the full dataset. Discuss how representative the
+training and test sets are likely to be if we were to have selected one
+of these random splits.
+
+\textbf{1.3} Now, we'll use the \texttt{stratify} option to split the
+data in such a way that the relative class frequencies are preserved
+(the code is provided). Make a table showing how many observations of
+each class ended up in your training and test sets. Verify that the
+hyper-hypo ratio is roughly the same in both sets.
+
+\textbf{1.4} Provide the scatterplot of the predictors in the (training)
+data in a way that clearly indicates which class each observation
+belongs to.
+
+\textbf{1.5}: When we first start working with a dataset or algorithm,
+it's typically a good idea to figure out what \emph{baselines} we might
+compare our results to. For regression, we always compared against a
+baseline of predicting the mean (in computing \(R^2\)). For
+classification, a simple baseline is always predicting the \emph{most
+common class}. What "baseline" accuracy can we achieve on the thyroid
+classification problem by always predicting the most common class?
+Assign the result to \texttt{baseline\_accuracy} so we can use it later.
+(\textbf{note: don't look at the test set until instructed})
+
+\textbf{1.6} Make a decision function to separate these samples using no
+library functions; just write out your logic by hand. Your manual
+classifier doesn't need to be well-tuned (we'll be exploring algorithms
+to do that!); it only needs to (1) predict each class at least once, and
+(2) achieve an accuracy at least 10\% greater accurate than predicting
+the most likely class. Use the \texttt{overlay\_decision\_boundaries}
+function provided above to overlay the decision boundaries of your
+function on the training set. (Note that the function modifies an
+existing plot, so call it after plotting your points.)
+
+Based on your exploration, do you think a linear classifier (i.e., a
+classifier where all decision boundaries are line segments) could
+achieve above 85\% accuracy on this dataset? Could a non-linear
+classifier do better? What characteristics of the data lead you to these
+conclusions?
+
+    \textbf{1.1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} your code here}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataset\PYZus{}HW7.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   Biomarker 1  Biomarker 2  Diagnosis
+0     0.262372     0.875473          1
+1     0.693152     0.262372          1
+2     0.262372     0.405472          1
+3    -0.105349     1.064714          1
+4     0.000010     1.131405          1
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+       Biomarker 1  Biomarker 2   Diagnosis
+count   215.000000   215.000000  215.000000
+mean      0.414441     0.303155    1.441860
+std       0.888106     2.174369    0.726737
+min      -2.302485   -11.512925    1.000000
+25%       0.000010    -0.510809    1.000000
+50%       0.262372     0.693152    1.000000
+75%       0.530634     1.410989    2.000000
+max       4.032469     4.030695    3.000000
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 215 entries, 0 to 214
+Data columns (total 3 columns):
+Biomarker 1    215 non-null float64
+Biomarker 2    215 non-null float64
+Diagnosis      215 non-null int64
+dtypes: float64(2), int64(1)
+memory usage: 5.1 KB
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+None
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} your code here}
+        \PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 1    150
+        2     35
+        3     30
+        Name: Diagnosis, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 1    0.697674
+        2    0.162791
+        3    0.139535
+        Name: Diagnosis, dtype: float64
+\end{Verbatim}
+            
+    \emph{Answer}: There are 150 instances of normal thyroid levels, 35
+instances of hyperthroidism, and 30 cases of hypothyroidism. The
+hyper-to-hypo ratio is 7:6.
+
+    \textbf{1.2}We're going to split this data into a 50\% training set and
+a 50\% test set. But since our dataset is small, we need to make sure we
+do it correctly. Let's see what happens when we \emph{don't} split
+correctly: for each of 100 different random splits of the data into 50\%
+train and 50\% test, compute the hyper-to-hypo for the observations end
+up in the training set. Plot the distribution of the hyper-to-hypo
+ratio; on your plot, also mark the hyper-to-hypo ratio that you found in
+the full dataset. Discuss how representative the training and test sets
+are likely to be if we were to have selected one of these random splits.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{ratio\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{n}{data\PYZus{}train}\PY{p}{,} \PY{n}{data\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+            \PY{n}{counts\PYZus{}train} \PY{o}{=} \PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+            \PY{n}{train\PYZus{}hyper} \PY{o}{=} \PY{n}{counts\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{train\PYZus{}hypo} \PY{o}{=} \PY{n}{counts\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+            \PY{n}{ratio} \PY{o}{=} \PY{n}{train\PYZus{}hyper}\PY{o}{/}\PY{n}{train\PYZus{}hypo}
+            \PY{n}{ratio\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ratio}\PY{p}{)}
+        
+        \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{7}\PY{o}{/}\PY{l+m+mi}{6}\PY{p}{)}
+        
+        \PY{n+nb}{len}\PY{p}{(}\PY{n}{ratio\PYZus{}list}\PY{p}{)}
+            
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{ratio\PYZus{}list}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.8}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Data Hyper\PYZhy{}to\PYZhy{}Hypo Ratio}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s for 100 Iterations of Splitting}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hyper\PYZhy{}to\PYZhy{}Hypo Ratio}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Answer}: Because we've failed to stratify the data and there are
+so few instances of hyper-and hypo-thyroidism, we see that the
+hyper-to-hypo ratio varies from about 0.6 up to 2.3 (vs. the value of
+1.6 calculated from the original data). These training and test sets are
+unlikely to give a good represenataion of the data if we split this way.
+
+    \textbf{1.3} Now, we'll use the \texttt{stratify} option to split the
+data in such a way that the relative class frequencies are preserved
+(the code is provided). Make a table showing how many observations of
+each class ended up in your training and test sets. Verify that the
+hyper-hypo ratio is roughly the same in both sets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{data\PYZus{}train}\PY{p}{,} \PY{n}{data\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{Diagnosis}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} (107, 108)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Still need to put this into a new table.}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+           Biomarker 1  Biomarker 2
+Diagnosis                          
+1                   75           75
+2                   18           18
+3                   15           15
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+           Biomarker 1  Biomarker 2
+Diagnosis                          
+1                   75           75
+2                   17           17
+3                   15           15
+    \end{verbatim}
+
+    
+    \textbf{1.4} Provide the scatterplot of the predictors in the (training)
+data in a way that clearly indicates which class each observation
+belongs to.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{scatter}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+             \PY{n}{groups} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+             \PY{n}{names} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hyperthyroidism}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hypothyroidism}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{groups}\PY{p}{:}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Biomarker 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Biomarker 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{names}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Biomarker 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{;}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Biomarker 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{;}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scatter Plot of Predictors and Observation Classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{;}
+             \PY{k}{return} \PY{p}{(}\PY{n}{fig}\PY{p}{,}\PY{n}{ax}\PY{p}{)}
+         
+         \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{1.5}: When we first start working with a dataset or algorithm,
+it's typically a good idea to figure out what \emph{baselines} we might
+compare our results to. For regression, we always compared against a
+baseline of predicting the mean (in computing \(R^2\)). For
+classification, a simple baseline is always predicting the \emph{most
+common class}. What "baseline" accuracy can we achieve on the thyroid
+classification problem by always predicting the most common class?
+Assign the result to \texttt{baseline\_accuracy} so we can use it later.
+(\textbf{note: don't look at the test set until instructed})
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}value} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{df\PYZus{}value} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}value}\PY{p}{)}
+         \PY{n}{baseline\PYZus{}accuracy} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{df\PYZus{}value}\PY{o}{.}\PY{n}{Test}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{df\PYZus{}value}\PY{o}{.}\PY{n}{Test}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}value}\PY{o}{.}\PY{n}{Test}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}value}\PY{o}{.}\PY{n}{Test}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{baseline\PYZus{}accuracy}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 0.6944444444444444
+\end{Verbatim}
+            
+    \textbf{1.6} Make a decision function to separate these samples using no
+library functions; just write out your logic by hand. Your manual
+classifier doesn't need to be well-tuned (we'll be exploring algorithms
+to do that!); it only needs to (1) predict each class at least once, and
+(2) achieve an accuracy at least 10\% greater accurate than predicting
+the most likely class. Use the \texttt{overlay\_decision\_boundaries}
+function provided above to overlay the decision boundaries of your
+function on the training set. (Note that the function modifies an
+existing plot, so call it after plotting your points.)
+
+Based on your exploration, do you think a linear classifier (i.e., a
+classifier where all decision boundaries are line segments) could
+achieve above 85\% accuracy on this dataset? Could a non-linear
+classifier do better? What characteristics of the data lead you to these
+conclusions?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{nx}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{ny}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{desaturate}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    A function that visualizes the decision boundaries of a classifier.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    ax: Matplotlib Axes to plot on}
+         \PY{l+s+sd}{    model: Classifier (has a `.predict` method)}
+         \PY{l+s+sd}{    X: feature vectors}
+         \PY{l+s+sd}{    y: ground\PYZhy{}truth classes}
+         \PY{l+s+sd}{    colors: list of colors to use. Use color colors[i] for class i.}
+         \PY{l+s+sd}{    nx, ny: number of mesh points to evaluated the classifier on}
+         \PY{l+s+sd}{    desaturate: how much to desaturate each of the colors (for better contrast with the sample points)}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} Create mesh}
+             \PY{n}{xmin}\PY{p}{,} \PY{n}{xmax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xlim}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ymin}\PY{p}{,} \PY{n}{ymax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}ylim}\PY{p}{(}\PY{p}{)}
+             \PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{xmin}\PY{p}{,} \PY{n}{xmax}\PY{p}{,} \PY{n}{nx}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{ymin}\PY{p}{,} \PY{n}{ymax}\PY{p}{,} \PY{n}{ny}\PY{p}{)}\PY{p}{)}
+             \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{xx}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{yy}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} Predict on mesh of points}
+             \PY{k}{if} \PY{n+nb}{hasattr}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}
+             \PY{n}{y} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{nx}\PY{p}{,} \PY{n}{ny}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Generate colormap.}
+             \PY{k}{if} \PY{n}{colors} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{colors} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{get\PYZus{}color\PYZus{}cycle}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{y} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} If first class is not 0, shift.}
+             \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+             \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{n}{sns}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{desaturate}\PY{p}{(}\PY{n}{color}\PY{p}{,} \PY{n}{desaturate}\PY{p}{)} \PY{k}{for} \PY{n}{color} \PY{o+ow}{in} \PY{n}{colors}\PY{p}{]}
+             \PY{n}{cmap} \PY{o}{=} \PY{n}{matplotlib}\PY{o}{.}\PY{n}{colors}\PY{o}{.}\PY{n}{ListedColormap}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Plot decision surface}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{pcolormesh}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{norm}\PY{o}{=}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{colors}\PY{o}{.}\PY{n}{NoNorm}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{n}{y}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{xx} \PY{o}{=} \PY{n}{xx}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{nx}\PY{p}{,} \PY{n}{ny}\PY{p}{)}
+             \PY{n}{yy} \PY{o}{=} \PY{n}{yy}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{nx}\PY{p}{,} \PY{n}{ny}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     ax.contourf(xx, yy, y, cmap=cmap, vmin=0, vmax=3)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Update the following function:}
+         \PY{k}{def} \PY{n+nf}{predict\PYZus{}manual\PYZus{}one\PYZus{}sample}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1.35}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{3}
+             \PY{k}{elif} \PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{2}
+             \PY{k}{return}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{predict\PYZus{}manual}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{predict\PYZus{}manual\PYZus{}one\PYZus{}sample}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{manual\PYZus{}predictions\PYZus{}train} \PY{o}{=} \PY{n}{predict\PYZus{}manual}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{manual\PYZus{}predictions\PYZus{}test} \PY{o}{=} \PY{n}{predict\PYZus{}manual}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{n}{accuracy\PYZus{}train} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{manual\PYZus{}predictions\PYZus{}train}\PY{p}{)}
+         \PY{n}{accuracy\PYZus{}test} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{manual\PYZus{}predictions\PYZus{}test}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy Train:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy Test:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{accuracy\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy Train: 0.897196261682243
+Accuracy Test: 0.8611111111111112
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{assert} \PY{n}{accuracy\PYZus{}train} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{p}{(}\PY{n}{baseline\PYZus{}accuracy} \PY{o}{*} \PY{l+m+mf}{1.10}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy too low}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{assert} \PY{n+nb}{all}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{manual\PYZus{}predictions\PYZus{}train} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Should predict each class at least once.}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \textbf{Your answer here}
+
+Yes, I think a linear classifier (i.e., a classifier where all decision
+boundaries are line segments) could achieve above 85\% accuracy on this
+dataset, because we achieved that. I do think a non-linear classifier
+would do better, because when looking at the plotted data, the classes
+are group in elipses type shapes, so it seems the boundaries between
+them are non-linear.
+
+     Question 2 {[}20 pts{]}: Multiclass Logistic Regression
+
+    \textbf{2.1} Fit two one-vs-rest logistic regression models using
+sklearn. For the first model, use the train dataset as-is (so the
+decision boundaries will be linear); for the second model, also include
+quadratic and interaction terms. For both models, use \(L_2\)
+regularization, tuning the regularization parameter using 5-fold
+cross-validation.
+
+For each model, make a plot of the training data with the decision
+boundaries overlayed.
+
+\textbf{2.2} Interpret the decision boundaries: - Do these decision
+boundaries make sense? - What does adding quadratic and interaction
+features do to the shape of the decision boundaries? Why? - How do the
+different models treat regions where there are few samples? How do they
+classify such samples?
+
+\textbf{2.3} Compare the performance of the two logistic regression
+models above using 5-fold cross-validation. Which model performs best?
+How confident are you about this conclusion? Does the inclusion of the
+polynomial terms in logistic regression yield better accuracy compared
+to the model with only linear terms? Why do you suspect it is better or
+worse?
+
+\emph{Hint}: You may use the \texttt{cross\_val\_score} function for
+cross-validation.
+
+    \textbf{2.1} Fit two one-vs-rest logistic regression models using
+sklearn. For the first model, use the train dataset as-is (so the
+decision boundaries will be linear); for the second model, also include
+quadratic and interaction terms. For both models, use \(L_2\)
+regularization, tuning the regularization parameter using 5-fold
+cross-validation.
+
+For each model, make a plot of the training data with the decision
+boundaries overlayed.
+
+    \emph{Hint}: You should use \texttt{LogisticRegressionCV}. For the model
+with quadratic and interaction terms, use the following Pipeline:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{polynomial\PYZus{}logreg\PYZus{}estimator} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}
+             \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{include\PYZus{}bias}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{,}
+             \PY{n}{LogisticRegressionCV}\PY{p}{(}\PY{n}{multi\PYZus{}class} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ovr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{penalty} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}iter} \PY{o}{=} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Note that you can access the logistic regression classifier itself by}
+         \PY{c+c1}{\PYZsh{} polynomial\PYZus{}logreg\PYZus{}estimator.named\PYZus{}steps[\PYZsq{}logisticregressioncv\PYZsq{}]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{LogRegOvR} \PY{o}{=} \PY{n}{LogisticRegressionCV}\PY{p}{(}\PY{n}{multi\PYZus{}class} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ovr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{penalty} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}iter} \PY{o}{=} \PY{l+m+mi}{10000}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{One\PYZhy{}vs\PYZhy{}Rest Scatterplot with Decision Boundaries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{LogRegOvR}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{LogRegOvR\PYZus{}poly} \PY{o}{=} \PY{n}{polynomial\PYZus{}logreg\PYZus{}estimator}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{One\PYZhy{}vs\PYZhy{}Rest Scatterplot for Data with Polynomial Terms with Decision Boundaries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{LogRegOvR\PYZus{}poly}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{2.2}
+
+    \textbf{Your answer here}
+
+The first model plot looks linear and the second looks curved. However,
+The boundary between Normal and hyperthyroidism basically looks linear.
+What is most concerning about the second plot is that the "background"
+is all hypothyroidism, meaning that anything that wouldn't fit in the
+other two classes would be considered hypothyroidism, which seems wrong
+at lower levels of Biomarker 2 and extreme levels of Biomarker 1.
+
+    \textbf{2.3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{LogRegOvR}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{n}{LogRegOvR}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{LogRegOvR\PYZus{}poly}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{n}{LogRegOvR\PYZus{}poly}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9158878504672897 0.8425925925925926
+0.9345794392523364 0.8611111111111112
+
+    \end{Verbatim}
+
+    \textbf{Your answer here} The polynomial model fits best because it's
+got a higher score for both train and test. As mentioned in 1.6, we
+assumed a curvilinear model would be better, because when looking at the
+data they seem to group in the shape of ellipses.
+
+     Question 3 {[}20 pts{]}: Discriminant Analysis
+
+    \textbf{3.1} Consider the following synthetic dataset with two classes.
+A green star marks a test observation; which class do you think it
+belongs to? How would LDA classify that observation? How would QDA?
+Explain your reasoning.
+
+\textbf{3.2} Now let's return to the thyroid dataset. Make a table of
+the total variance of each class for each biomarker.
+
+\textbf{3.3} Fit LDA and QDA on the thyroid data, and plot the decision
+boundaries. Comment on how the decision boundaries differ. How does the
+difference in decision boundaries relate to characteristics of the data,
+such as the table you computed above?
+
+    \textbf{3.1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{X\PYZus{}blobs}\PY{p}{,} \PY{n}{y\PYZus{}blobs} \PY{o}{=} \PY{n}{make\PYZus{}blobs}\PY{p}{(}\PY{n}{centers}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{cluster\PYZus{}std}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{20.}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}blobs}\PY{p}{[}\PY{n}{y\PYZus{}blobs}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}blobs}\PY{p}{[}\PY{n}{y\PYZus{}blobs}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Class 0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}blobs}\PY{p}{[}\PY{n}{y\PYZus{}blobs}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}blobs}\PY{p}{[}\PY{n}{y\PYZus{}blobs}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Class 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{75}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test observation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Answer} It seems to us that the test observation would be in
+Class 0. LDA would almost certainly classify it as zero, while QDA might
+classify it as one. Although there are data in Class 1 that share the
+same x value as the test observation, there are none that share the same
+y value (or come close); however, the test observation seems to be very
+close to existing x and y values for Class 0, which is why I would
+classify it in that group.
+
+    \textbf{3.2} Now let's return to the thyroid dataset. Make a table of
+the total variance of each class for each biomarker.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}            Biomarker 1  Biomarker 2
+         Diagnosis                          
+         1             0.151141     1.932455
+         2             0.308598     8.202238
+         3             1.092134     0.901756
+\end{Verbatim}
+            
+    \textbf{3.3} Fit LDA and QDA on the thyroid data, and plot the decision
+boundaries. Comment on how the decision boundaries differ. How does the
+difference in decision boundaries relate to characteristics of the data,
+such as the table you computed above?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{lda} \PY{o}{=} \PY{n}{LinearDiscriminantAnalysis}\PY{p}{(}\PY{n}{store\PYZus{}covariance}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{c+c1}{\PYZsh{}, priors=[1,1,1])}
+         \PY{n}{qda} \PY{o}{=} \PY{n}{QuadraticDiscriminantAnalysis}\PY{p}{(}\PY{n}{store\PYZus{}covariance}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{c+c1}{\PYZsh{}, priors=[1,1,1])}
+         
+         \PY{n}{lda}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{qda}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{lda}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{n}{qda}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LDA accuracy train=}\PY{l+s+si}{\PYZob{}:.2\PYZpc{}\PYZcb{}}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZob{}:.2\PYZpc{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+             \PY{n}{lda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{lda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QDA accuracy train=}\PY{l+s+si}{\PYZob{}:.2\PYZpc{}\PYZcb{}}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZob{}:.2\PYZpc{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+             \PY{n}{qda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{qda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LDA accuracy train=85.05\%, test: 81.48\%
+QDA accuracy train=87.85\%, test: 85.19\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{lda}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{qda}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The decision boundaries in the LDA model are similarly sized, while the
+boundaries in the QDA model vary quite a bit in size. This makes sense,
+because LDA assumes that everything is normally distributed and that the
+covariance for each class for each predictor is constant. Given the
+table we created, we can see that the covariance is not constant, so we
+would assume QDA would be a better model for this data.
+
+     Question 4 {[}20 pts{]}: Fit Decision Trees
+
+We next try out decision trees for thyroid classification. For the
+following questions, you should use the \emph{Gini} index as the
+splitting criterion while fitting the decision tree.
+
+\emph{Hint:} You should use the \texttt{DecisionTreeClassifier} class to
+fit a decision tree classifier and the \texttt{max\_depth} attribute to
+set the tree depth.
+
+    \textbf{4.1}. Fit a decision tree model to the thyroid data set with
+(maximum) tree depths 2, 3, ..., 10. Make plots of the accuracy as a
+function of the maximum tree depth, on the training set and the mean
+score on the validation sets for 5-fold CV. Is there a depth at which
+the fitted decision tree model achieves near-perfect classification on
+the training set? If so, what can you say about how this tree will
+generalize? Which hyperparameter setting gives the best cross-validation
+performance?
+
+\textbf{4.2}: Visualize the decision boundaries of the best decision
+tree you just fit. How are the shapes of the decision boundaries for
+this model different from the other methods we have seen so far? Given
+an explanation for your observation.
+
+\textbf{4.3} Explain \emph{in words} how the best fitted model diagnoses
+'hypothyroidism' for a new patient. You can use the code below to
+examine the structure of the best decision tree.
+
+    \textbf{4.1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb+bp}{cls} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{n}{i}\PY{p}{)}
+             \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{mean} \PY{o}{=} \PY{p}{(}\PY{n}{score}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{score}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{score}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{+}\PY{n}{score}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{+}\PY{n}{score}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{5}
+             \PY{n}{words} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean is: }\PY{l+s+s2}{\PYZdq{}}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{score}\PY{p}{,} \PY{n}{words}\PY{p}{,} \PY{n}{mean}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2 [0.86363636 0.81818182 0.9047619  0.95238095 0.95238095] The mean is:  0.8982683982683983
+3 [0.90909091 0.86363636 0.9047619  0.95238095 0.95238095] The mean is:  0.9164502164502165
+4 [0.86363636 0.77272727 0.9047619  0.9047619  0.95238095] The mean is:  0.8796536796536796
+5 [0.90909091 0.81818182 0.9047619  0.9047619  0.95238095] The mean is:  0.8978354978354979
+6 [0.90909091 0.77272727 0.9047619  0.9047619  0.95238095] The mean is:  0.8887445887445887
+7 [0.86363636 0.77272727 0.9047619  0.9047619  0.95238095] The mean is:  0.8796536796536796
+8 [0.90909091 0.77272727 0.9047619  0.9047619  0.95238095] The mean is:  0.8887445887445887
+9 [0.86363636 0.77272727 0.9047619  0.9047619  0.95238095] The mean is:  0.8796536796536796
+10 [0.90909091 0.77272727 0.9047619  0.9047619  0.95238095] The mean is:  0.8887445887445887
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{depths} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+         \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{scores\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{mean\PYZus{}CV\PYZus{}score} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{depth} \PY{o+ow}{in} \PY{n}{depths}\PY{p}{:}
+             \PY{n}{dt} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{n}{depth}\PY{p}{)}
+             \PY{n}{dt}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dt}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             \PY{n}{scores\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dt}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+             \PY{n}{mean\PYZus{}CV\PYZus{}score}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{n}{depth}\PY{p}{)}\PY{p}{,}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+           
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,} \PY{n}{mean\PYZus{}CV\PYZus{}score}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b*\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CV Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{depths}\PY{p}{,} \PY{n}{scores\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g*\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model Accuracy vs. The Depth of the Decision Tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    At classification depth of 7, the model achieves near perfect accuracy
+of the training set. However, given the mean CV scores, we can see that
+a depth of 7 is overfitting to the training set, and a max depth of 3
+has the best performance for the validation set and the training set.
+
+    \textbf{4.2}: Visualize the decision boundaries of the best decision
+tree you just fit. How are the shapes of the decision boundaries for
+this model different from the other methods we have seen so far? Given
+an explanation for your observation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{dt\PYZus{}model} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         
+         \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Decision Tree Classifier Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{dt\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Your answer here}
+
+These classifier boundaries are now all vertical and horizontal rather
+than just linear. They seem to classify the points well, and better than
+the LDA model; however it is unclear from eye-balling if they are better
+at classifying than the QDA boundaries.
+
+    \textbf{4.3} Explain \emph{in words} how the best fitted model diagnoses
+'hypothyroidism' for a new patient. You can use the code below to
+examine the structure of the best decision tree.
+
+    \emph{Entirely optional note:} You can also generate a visual
+representation using the \texttt{export\_graphviz}. However, viewing the
+generated GraphViz file requires additional steps. One approach is to
+paste the generated graphviz file in the text box at
+http://www.webgraphviz.com/. Alternatively, you can run GraphViz on your
+own computer, but you may need to install some additional software.
+Refer to the
+\href{http://scikit-learn.org/stable/modules/tree.html\#classification}{Decision
+Tree section of the sklearn user guide} for more information.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} This code is adapted from}
+         \PY{c+c1}{\PYZsh{} http://scikit\PYZhy{}learn.org/stable/auto\PYZus{}examples/tree/plot\PYZus{}unveil\PYZus{}tree\PYZus{}structure.html}
+         \PY{k}{def} \PY{n+nf}{show\PYZus{}tree\PYZus{}structure}\PY{p}{(}\PY{n}{clf}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tree} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{tree\PYZus{}}
+         
+             \PY{n}{n\PYZus{}nodes} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{node\PYZus{}count}
+             \PY{n}{children\PYZus{}left} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{children\PYZus{}left}
+             \PY{n}{children\PYZus{}right} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{children\PYZus{}right}
+             \PY{n}{feature} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{feature}
+             \PY{n}{threshold} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{threshold}
+         
+             \PY{c+c1}{\PYZsh{} The tree structure can be traversed to compute various properties such}
+             \PY{c+c1}{\PYZsh{} as the depth of each node and whether or not it is a leaf.}
+             \PY{n}{node\PYZus{}depth} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{n\PYZus{}nodes}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int64}\PY{p}{)}
+             \PY{n}{is\PYZus{}leaves} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{n\PYZus{}nodes}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{bool}\PY{p}{)}
+             \PY{n}{stack} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}  \PY{c+c1}{\PYZsh{} seed is the root node id and its parent depth}
+             \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{stack}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{node\PYZus{}id}\PY{p}{,} \PY{n}{parent\PYZus{}depth} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{node\PYZus{}depth}\PY{p}{[}\PY{n}{node\PYZus{}id}\PY{p}{]} \PY{o}{=} \PY{n}{parent\PYZus{}depth} \PY{o}{+} \PY{l+m+mi}{1}
+         
+                 \PY{c+c1}{\PYZsh{} If we have a test node}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{children\PYZus{}left}\PY{p}{[}\PY{n}{node\PYZus{}id}\PY{p}{]} \PY{o}{!=} \PY{n}{children\PYZus{}right}\PY{p}{[}\PY{n}{node\PYZus{}id}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{children\PYZus{}left}\PY{p}{[}\PY{n}{node\PYZus{}id}\PY{p}{]}\PY{p}{,} \PY{n}{parent\PYZus{}depth} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{children\PYZus{}right}\PY{p}{[}\PY{n}{node\PYZus{}id}\PY{p}{]}\PY{p}{,} \PY{n}{parent\PYZus{}depth} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{is\PYZus{}leaves}\PY{p}{[}\PY{n}{node\PYZus{}id}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The binary tree structure has }\PY{l+s+si}{\PYZob{}n\PYZus{}nodes\PYZcb{}}\PY{l+s+s2}{ nodes:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}nodes}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{indent} \PY{o}{=} \PY{n}{node\PYZus{}depth}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{  }\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k}{if} \PY{n}{is\PYZus{}leaves}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{prediction} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{classes\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{tree}\PY{o}{.}\PY{n}{value}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}indent\PYZcb{}}\PY{l+s+s2}{node }\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s2}{: predict class }\PY{l+s+si}{\PYZob{}prediction\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{node }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: if X[:, }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{] \PYZlt{}= }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ then go to node }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, else go to node }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                         \PY{n}{indent}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{feature}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{threshold}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{children\PYZus{}left}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{children\PYZus{}right}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{show\PYZus{}tree\PYZus{}structure}\PY{p}{(}\PY{n}{dt\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The binary tree structure has 11 nodes:
+
+node 0: if X[:, 1] <= -0.693 then go to node 1, else go to node 6
+  node 1: if X[:, 0] <= 0.582 then go to node 2, else go to node 5
+    node 2: if X[:, 0] <= -0.053 then go to node 3, else go to node 4
+      node 3: predict class 2
+      node 4: predict class 2
+    node 5: predict class 1
+  node 6: if X[:, 0] <= 1.270 then go to node 7, else go to node 10
+    node 7: if X[:, 1] <= 1.879 then go to node 8, else go to node 9
+      node 8: predict class 1
+      node 9: predict class 3
+    node 10: predict class 3
+
+    \end{Verbatim}
+
+    \textbf{Your answer here}
+
+If Biomarker 2 is \textgreater{}= -0.693 and Biomarker 1 is
+\textgreater{}= 1.270, then this model will predict Hypothyroidism.
+
+Similarly, if Biomarker 2 is \textgreater{}= to -0.693, Biomarker 1 is
+\textless{}= 1.270, and Biomarker 2 is \textgreater{}= 1.879, then this
+model will predict Hypothyroidism.
+
+     Question 5 {[}18 pts{]}: k-NN and Model comparison 
+
+    We have now seen six different ways of fitting a classification model:
+\textbf{linear logistic regression}, \textbf{logistic regression with
+polynomial terms}, \textbf{LDA}, \textbf{QDA}, \textbf{decision trees},
+and in this problem we'll add \textbf{k-NN}. Which of these methods
+should we use in practice for this problem? To answer this question, we
+now compare and contrast these methods.
+
+    \textbf{5.1} Fit a k-NN classifier with uniform weighting to the
+training set. Use 5-fold CV to pick the best \(k\).
+
+\emph{Hint: Use \texttt{KNeighborsClassifier} and
+\texttt{cross\_val\_score}.}
+
+\textbf{5.2} Plot the decision boundaries for each of the following
+models that you fit above. For models with hyperparameters, use the
+values you chose using cross-validation. - Logistic Regression (linear)
+- Logistic Regression (polynomial) - Linear Discriminant Analysis -
+Quadratic Discriminant Analysis - Decision Tree - k-NN
+
+Comment on the difference in the decision boundaries between the
+following pairs of models. Why does this difference make sense given how
+the model works? - Linear logistic regression; LDA - Quadratic logistic
+regression; QDA. - k-NN and whichever other model has the most complex
+decision boundaries
+
+\textbf{5.3} Describe how each model classifies an observation from the
+test set in one short sentence for each (assume that the model is
+already fit). For example, for the linear regression classifier you
+critiqued in hw5, you might write: "It classifies the observation as
+class 1 if the dot product of the feature vector with the the model
+coefficients (with constant added) exceeds 0.5."
+
+\begin{itemize}
+\tightlist
+\item
+  Logistic Regression (One-vs-Rest)
+\item
+  Linear Discriminant Analysis
+\item
+  Quadratic Discriminant Analysis
+\item
+  k-Nearest-Neighbors Classifier
+\item
+  Decision Tree
+\end{itemize}
+
+\textbf{5.4} Estimate the validation accuracy for each of the models.
+Summarize your results in a graph or table. (Note: for some models you
+have already run these computations; it's ok to redo them here if it
+makes your code cleaner.)
+
+\textbf{5.5} Based on everything you've found in this question so far,
+which model would you expect to perform best on our test data?
+
+Now evaluate each fitted model's performance on the test set. Also, plot
+the same decision boundaries as above, but now showing the test set. How
+did the overall performance compare with your performance estimates
+above? Which model actually performed best? Why do you think this is the
+case?
+
+\textbf{5.6}. Compare and contrast the six models based on each of the
+following criteria (a supporting table to summarize your thoughts can be
+helpful): - Classification performance - Complexity of decision boundary
+- Memory storage - Interpretability
+
+If you were a clinician who had to use the classifier to diagnose
+thyroid disorders in patients, which among the six methods would you be
+most comfortable in using? Justify your choice in terms of at least 3
+different aspects.
+
+    \textbf{5.1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{scores\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{mean\PYZus{}CV\PYZus{}score} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{ks}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{ks}\PY{p}{:}
+             \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+             \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             \PY{n}{scores\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+             \PY{n}{mean\PYZus{}CV\PYZus{}score}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{,}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ks}\PY{p}{,} \PY{n}{mean\PYZus{}CV\PYZus{}score}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b*\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean CV Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ks}\PY{p}{,} \PY{n}{scores\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g*\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model Accuracy vs. k value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It looks like k=4 or k=5 is the best model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{knn\PYZus{}model}\PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n}{score\PYZus{}train} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train Score: 0.9252336448598131
+Test Score: 0.8518518518518519
+
+    \end{Verbatim}
+
+    \textbf{5.2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{One\PYZhy{}vs\PYZhy{}Rest Scatterplot with Decision Boundaries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{LogRegOvR}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{lda}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{One\PYZhy{}vs\PYZhy{}Rest Scatterplot for Data with Polynomial Terms with Decision Boundaries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{LogRegOvR\PYZus{}poly}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{qda}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_80_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Decision Tree Classifier Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{dt\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KNN (N=4) Model with Observations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{knn\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_82_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Linear Logistic v. LDA:} The polynomial logistic regression and
+the LDA have very similar decision boundaries. Overall, they appear to
+provide the same accuracy predicting normal thyroid vs. hypothyroid
+instances. However, the logistic provides decision boundaries that
+appear slightly more accurate when preducting hyer vs. hypo. Both
+provide only linear boundaries, which makes sense. Both regressions are
+linear, they just use slightly different methods to calculate the linear
+boundaries.
+
+\textbf{Polynomial Logistic v. QDA:} The polynomial logistic appears to
+have two large ovals as decision boundaries containing normal and hyper,
+while the extra space outisde those ovals is reserved for instances of
+hypo. QDA has one "oval" for normal outcomes, then two areas where hyper
+and hypo are bound.
+
+\textbf{KNN vs. QDA:} Because of how the KNN regression works in
+selected nearest neighbors, it's boundaries do not appear to be smooth
+or to follow a logical pattern. The regression with the next most
+complicated boundaries, the QDA, has a very smooth collection/flow of
+boundaries.
+
+    \textbf{5.3}
+
+    Logistic Regression (One-vs-Rest): Logistic regression classifies the
+observation as class 1 if the dot product of the feature vector with the
+the model coefficients (with constant added) exceeds a certain value.
+One-vs-rest is used when there are \textgreater{}2 classification
+outcomes, and it prepares a classifier for each possible pair (here, 1
+v. 2, 2 v. 3, 1 v. 3).
+
+Linear Discriminant Analysis: LDA minimizes the disperion between
+samples of the same class and maximizes the dispersion between samples
+of different classes. It passes in the feature vector, then gives the
+probability of the reponse category given the value of the feature
+vector's dot product with the model coefficients.
+
+Quadratic Discriminant Analysis: Similar to LDA, but with quadratic
+terms. The probability is calculated under the assumption that each
+class has its own covariance matrix, resulting in more specific
+probabilities.
+
+k-Nearest-Neighbors Classifier: Takes a deature vector, calculates the
+dot product with model coefficients, and determines where to place the
+value on the kNN line.
+
+Decision Tree: Takes the feature vector and applies decision nodes -\/-
+if the vector as a certain feature, it progresses to the next node.
+There is one feature per node, and the vector works its way down the
+tree until it reaches the most appropriate endpoint.
+
+    \textbf{5.4}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Baseline}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Log Reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Poly Log Reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision Tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{n}{baseline\PYZus{}accuracy}\PY{p}{,}\PY{n}{LogRegOvR}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{LogRegOvR\PYZus{}poly}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{lda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{qda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{]}
+         \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{score\PYZus{}df} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{scores}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{columns}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{index}\PY{p}{)}
+         \PY{n}{score\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}                    Score
+         Baseline        0.694444
+         Linear Log Reg  0.915888
+         Poly Log Reg    0.934579
+         LDA             0.850467
+         QDA             0.878505
+         Decision Tree   0.953271
+         kNN             0.925234
+\end{Verbatim}
+            
+    \textbf{Answer:} We would expect the Decision Tree to perform best based
+on the accuracy score.
+
+    \textbf{5.5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Log Reg v. Test Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{LogRegOvR}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_90_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test data v. Polynomial Logistic Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{LogRegOvR\PYZus{}poly}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_91_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA v. Test Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{lda}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA v. Test Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{qda}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_93_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Decision Tree v. Test Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{dt\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{fix}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN v. Test Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{overlay\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{knn}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_95_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Baseline}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Log Reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Poly Log Reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QDA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision Tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{n}{baseline\PYZus{}accuracy}\PY{p}{,}\PY{n}{LogRegOvR}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{LogRegOvR\PYZus{}poly}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{lda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{qda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{]}
+         \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{test\PYZus{}score\PYZus{}df} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{scores}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{columns}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{index}\PY{p}{)}
+         \PY{n}{dfs}\PY{o}{=} \PY{p}{(}\PY{n}{score\PYZus{}df}\PY{p}{,} \PY{n}{test\PYZus{}score\PYZus{}df}\PY{p}{)}
+         \PY{n}{final\PYZus{}score\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{dfs}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{sort} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{final\PYZus{}score\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:}                    Score  Test Score
+         Baseline        0.694444    0.694444
+         Linear Log Reg  0.915888    0.842593
+         Poly Log Reg    0.934579    0.861111
+         LDA             0.850467    0.814815
+         QDA             0.878505    0.851852
+         Decision Tree   0.953271    0.833333
+         kNN             0.925234    0.851852
+\end{Verbatim}
+            
+    \textbf{Answer}: We expected the decision tree to perform best, but the
+Polynomial Logistic Regression actually performed best on the test set.
+Every single model's score dropped from the training set values when
+running the test set. Notably, the linear log reg, LDA, and Decision
+Tree scores all fell below the .85 threshold. We believe that the
+Polynomial Logistic Regression performed well because of it's polynomial
+and interaction terms. With only 215 observations, the data set was
+relatively small. Using interactions terms enhanced the predictive
+power, and because it only increased the predictors from 2 to 5,
+overfitting was not an issue.
+
+    \textbf{5.6}. Compare and contrast the six models based on each of the
+following criteria (a supporting table to summarize your thoughts can be
+helpful): - Classification performance - Complexity of decision boundary
+- Memory storage - Interpretability
+
+If you were a clinician who had to use the classifier to diagnose
+thyroid disorders in patients, which among the six methods would you be
+most comfortable in using? Justify your choice in terms of at least 3
+different aspects.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+         \PY{c+c1}{\PYZsh{} sys.getsizeof(LogRegOvR)}
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{LogRegOvR}\PY{p}{,} \PY{n}{LogRegOvR\PYZus{}poly}\PY{p}{,} \PY{n}{lda}\PY{p}{,} \PY{n}{qda}\PY{p}{,} \PY{n}{dt\PYZus{}model}\PY{p}{,}\PY{n}{knn}\PY{p}{]}
+         \PY{n}{size} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n}{s} \PY{o}{=} \PY{n}{sys}\PY{o}{.}\PY{n}{getsizeof}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+             \PY{n}{size}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n}{sc} \PY{o}{=} \PY{n}{item}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+             \PY{n}{score}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sc}\PY{p}{)}
+         \PY{n}{rows} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LogRegOvR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LogRegOvR\PYZus{}poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lda}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qda}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{n}{score}\PY{p}{,} \PY{n}{size}\PY{p}{]}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Performance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Memory Storage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{rows}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}                 LogRegOvR  LogRegOvR\_poly        lda        qda   dt\_model  \textbackslash{}
+         Performance      0.842593        0.861111   0.814815   0.851852   0.833333   
+         Memory Storage  56.000000       56.000000  56.000000  56.000000  56.000000   
+         
+                               knn  
+         Performance      0.851852  
+         Memory Storage  56.000000  
+\end{Verbatim}
+            
+    \textbf{Answer:} Based on accuracy alone, we would not consider the
+linear logistic, LDA, and decision tree as their classification
+performace returns values below 0.85 (an implied goal in this pset). All
+six models return the same memory storage value (we did confirm this
+outside our loop!), so that's not a factor. While knn performs well, the
+decision boundaries are complex and hard to interpret. This leaves us
+with the polynomial logistic regression and the QDA model. Both have a
+similar level of interpretability and complexity, so we would select the
+polynomial logistic regression based on classification performace.
+
+     Question 6: {[}2 pts{]} Including an 'abstain' option
+
+\textbf{Note this question is only worth 2 pts. }
+
+One of the reasons a hospital might be hesitant to use your thyroid
+classification model is that a misdiagnosis by the model on a patient
+can sometimes prove to be very costly (e.g. if the patient were to file
+a law suit seeking a compensation for damages). One way to mitigate this
+concern is to allow the model to 'abstain' from making a prediction:
+whenever it is uncertain about the diagnosis for a patient. However,
+when the model abstains from making a prediction, the hospital will have
+to forward the patient to a thyroid specialist (i.e. an
+endocrinologist), which would incur additional cost. How could one
+design a thyroid classification model with an abstain option, such that
+the cost to the hospital is minimized?
+
+\emph{Hint:} Think of ways to build on top of the logistic regression
+model and have it abstain on patients who are difficult to classify.
+
+    \textbf{6.1} More specifically, suppose the cost incurred by a hospital
+when a model mis-predicts on a patient is \$5000, and the cost incurred
+when the model abstains from making a prediction is \$1000. What is the
+average cost per patient for the OvR logistic regression model (without
+quadratic or interaction terms) from Question 2? Note that this needs to
+be evaluated on the patients in the test set.
+
+\textbf{6.2} Design a classification strategy (into the 3 groups plus
+the \emph{abstain} group) that has as low cost as possible per patient
+(certainly lower cost per patient than the logistic regression model).
+Give a justification for your approach.
+
+    \textbf{6.1}
+
+    \textbf{Your answer here}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} your code here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} your code here}
+\end{Verbatim}
+
+
+    \textbf{6.2}
+
+    \textbf{Your answer here}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
